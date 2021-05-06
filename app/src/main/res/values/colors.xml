@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="color_heading">#23003C</color>
+    <color name="canvas_color">#E5E5E5</color>
+    <color name="inner_border">#4F4F4F</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_border">#828282</color>
+    <color name="reply_box">#E7ECF0</color>
+    <color name="darken_text">#687684</color>
+    <color name="text_color">#BDBDBD</color>
+    <color name="vertical_line">#CED5DC</color>
+    <color name="message_color">#141619</color>
+    <color name="color_black">#000000</color>
 </resources>

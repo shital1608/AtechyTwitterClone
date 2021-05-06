@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">AtechyTwitterClone</string>
+    <string name="sign_in_to_">Sign in to your Account</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="text_confirm_password">Confirm Password</string>
+    <string name="text_sign_in">Sign in</string>
+    <string name="text_don_t_have_account">Don’t have a Teamio account yet?</string>
+    <string name="text_already_have_account">Already have account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="create_account">Create your Account</string>
+    <string name="text_Name">Name</string>
+    <string name="text_tweet_your_reply">Tweet your reply</string>
 </resources>
