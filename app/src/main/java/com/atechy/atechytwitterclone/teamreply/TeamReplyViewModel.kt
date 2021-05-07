@@ -43,7 +43,7 @@ class TeamReplyViewModel : ViewModel() {
      */
     fun callInOnStart() {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.e(TAG, ">>>callInOnStart")
+            Log.i(TAG, "callInOnStart")
             val currentUser = auth.currentUser
             user?.let { it(currentUser.uid, currentUser.email) }
 

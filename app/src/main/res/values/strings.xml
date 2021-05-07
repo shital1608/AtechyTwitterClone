@@ -18,4 +18,5 @@
     <string name="feilds_should_not_be_empty">Fields should not be empty</string>
     <string name="please_enter_valid_email">Please enter valid email</string>
     <string name="email_pass_should_not_be">Email and password should not be blank</string>
+    <string name="auth_fail">Authentication Fail</string>
 </resources>

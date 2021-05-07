@@ -60,13 +60,13 @@ class SignUpViewModel : ViewModel() {
                                 }
                             }
                             .addOnFailureListener {
-                                registeredSuccessFul.postValue("User registration is failed")
+                                registeredSuccessFul.postValue(Status.FAIL)
                                 Log.i(TAG, "${it?.message}")
                             }
 
                     } else {
                         emailAlreadyExist.postValue(true)
-                        registeredSuccessFul.postValue("Email address is already register, Please sign in")
+                        registeredSuccessFul.postValue(Status.ALREADY_EXIST)
                         Log.e(TAG, "Email address is already register")
                     }
                 }

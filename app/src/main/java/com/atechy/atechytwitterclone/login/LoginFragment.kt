@@ -1,6 +1,7 @@
 package com.atechy.atechytwitterclone.login
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,10 +50,28 @@ class LoginFragment : Fragment() {
 
         binding.buttonSignIn.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
-            loginViewModel.loginApplication(
-                binding.editEmail.text.toString(),
-                binding.editPassword.text.toString()
-            )
+            if (!binding.editEmail.text.toString()
+                    .isNullOrEmpty() && !binding.editPassword.text.toString().isNullOrEmpty()
+            ) {
+                if (loginViewModel.checkEmailValidation(binding.editEmail.text.toString())) {
+                    loginViewModel.loginApplication(
+                        binding.editEmail.text.toString(),
+                        binding.editPassword.text.toString()
+                    )
+                } else {
+                    Toast.makeText(
+                        activity,
+                        resources.getString(R.string.please_enter_valid_email),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
+                Toast.makeText(
+                    activity,
+                    resources.getString(R.string.email_pass_should_not_be),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
         return binding.root
     }
@@ -79,7 +98,8 @@ class LoginFragment : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.container, TeamReplyFragment())
                 ?.commit()
         } else {
-            Toast.makeText(activity, loginResponse, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, resources.getString(R.string.auth_fail), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

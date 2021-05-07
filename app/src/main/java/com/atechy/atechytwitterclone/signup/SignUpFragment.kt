@@ -14,6 +14,7 @@ import com.atechy.atechytwitterclone.R
 import com.atechy.atechytwitterclone.Status
 import com.atechy.atechytwitterclone.databinding.FragmentSignupBinding
 import com.atechy.atechytwitterclone.login.LoginFragment
+import com.atechy.atechytwitterclone.teamreply.TeamReplyFragment
 
 
 /**
@@ -45,7 +46,7 @@ class SignUpFragment : Fragment() {
             viewLifecycleOwner,
             Observer { response: String ->
                 binding.progressBar.visibility = View.GONE
-                loadLoginFragment(response)
+                loadTeamReplayFragment(response)
             })
         signUpViewModel.mEmailAlreadyExist.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -68,11 +69,7 @@ class SignUpFragment : Fragment() {
                     .isBlank() || binding.edtPassword.text.toString()
                     .isBlank() || binding.edtConfirmPassword.text.toString().isBlank()
             ) {
-                Toast.makeText(
-                    context,
-                    resources.getString(R.string.feilds_should_not_be_empty),
-                    Toast.LENGTH_SHORT
-                ).show()
+                displayToast(resources.getString(R.string.feilds_should_not_be_empty))
             } else {
                 binding.progressBar.visibility = View.VISIBLE
                 signUpViewModel.registerUser(
@@ -89,16 +86,22 @@ class SignUpFragment : Fragment() {
      *
      * @param response
      */
-    private fun loadLoginFragment(response: String) {
+    private fun loadTeamReplayFragment(response: String) {
         if (response == Status.SUCCESS) {
-            fragmentManager?.beginTransaction()?.replace(R.id.container, LoginFragment())?.commit()
-            Toast.makeText(
-                activity,
-                resources.getString(R.string.register_success),
-                Toast.LENGTH_SHORT
-            ).show()
+            fragmentManager?.beginTransaction()?.replace(R.id.container, TeamReplyFragment())
+                ?.commit()
+            displayToast(resources.getString(R.string.register_success))
+        } else if (response == Status.FAIL) {
+            displayToast(resources.getString(R.string.register_fail))
         } else {
-            Toast.makeText(activity, response, Toast.LENGTH_SHORT).show()
+            displayToast(resources.getString(R.string.email_already_register))
         }
+    }
+
+    /**
+     * Display text
+     */
+    private fun displayToast(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
 }

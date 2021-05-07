@@ -73,6 +73,10 @@ class TeamReplyFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(activity)
         binding.teamReplyRecyclerView.layoutManager = linearLayoutManager
 
+        binding.backImage.setOnClickListener {
+            activity?.finish()
+        }
+
         binding.editReply.setOnClickListener {
             if (binding.editReply.text.isBlank()) {
                 Toast.makeText(activity, "Please write message", Toast.LENGTH_SHORT).show()
