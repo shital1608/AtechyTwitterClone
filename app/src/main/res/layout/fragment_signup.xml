@@ -48,6 +48,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textCreateAccount">
 
             <EditText
+                android:id="@+id/edtName"
                 style="@style/email_text_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,6 +78,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutName">
 
             <EditText
+                android:id="@+id/edtEmail"
                 style="@style/email_text_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,6 +108,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutEmail">
 
             <EditText
+                android:id="@+id/edtPassword"
                 style="@style/email_text_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,6 +138,7 @@
             app:layout_constraintTop_toBottomOf="@+id/layoutPassword">
 
             <EditText
+                android:id="@+id/edtConfirmPassword"
                 style="@style/email_text_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,7 +154,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
+            android:id="@+id/buttonSignUp"
             style="@style/sign_in"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -176,7 +180,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatButton">
+            app:layout_constraintTop_toBottomOf="@+id/buttonSignUp">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView"
@@ -194,6 +198,17 @@
                 android:text="@string/sign_in" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar_"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            android:background="@drawable/progress_bar_drawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

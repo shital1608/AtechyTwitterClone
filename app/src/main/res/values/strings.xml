@@ -12,4 +12,10 @@
     <string name="create_account">Create your Account</string>
     <string name="text_Name">Name</string>
     <string name="text_tweet_your_reply">Tweet your reply</string>
+    <string name="register_success">User Register successfully</string>
+    <string name="register_fail">User registration is failed</string>
+    <string name="email_already_register">Email address is already register, Please sign in</string>
+    <string name="feilds_should_not_be_empty">Fields should not be empty</string>
+    <string name="please_enter_valid_email">Please enter valid email</string>
+    <string name="email_pass_should_not_be">Email and password should not be blank</string>
 </resources>

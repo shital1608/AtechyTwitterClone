@@ -99,6 +99,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/editReply"
                         style="@style/tweet_your_reply"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

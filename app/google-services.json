@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "840161788132",
+    "project_id": "atechytwitterclone",
+    "storage_bucket": "atechytwitterclone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840161788132:android:264a89d35a89a3ebdeacf1",
+        "android_client_info": {
+          "package_name": "com.atechy.atechytwitterclone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840161788132-1vupbkpmi6qcg014brtrqad2dko30rue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcoN0hpTFOQ_thboZn8qUpHxHWj6aZhC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840161788132-1vupbkpmi6qcg014brtrqad2dko30rue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
