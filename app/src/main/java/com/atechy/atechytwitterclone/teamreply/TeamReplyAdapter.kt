@@ -37,7 +37,6 @@ class TeamReplyAdapter(private val messagesList: List<Message>) : RecyclerView.A
         holder.messageText.text = messages.message
         holder.textName.text = messages.name
         val indexOfAtChar = messages.email?.indexOf("@", 0)
-        Log.e(">>>>", ">>>>>$indexOfAtChar")
         if(indexOfAtChar!= -1){
             val initialOfEmail = indexOfAtChar?.let { messages.email!!.substring(0, it) }
             holder.textEmail.text = "@$initialOfEmail"
