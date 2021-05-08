@@ -1,8 +1,6 @@
 package com.atechy.atechytwitterclone.login
 
-import android.R.attr
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -97,7 +95,7 @@ class LoginFragment : Fragment() {
     private fun loadTeamReplyFragment(loginResponse: String, binding: FragmentLoginBinding) {
         binding.progressBar.visibility = View.GONE
         if (loginResponse == Status.SUCCESS) {
-            Toast.makeText(activity, loginResponse, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, resources.getString(R.string.login_success), Toast.LENGTH_SHORT).show()
             fragmentManager?.beginTransaction()?.replace(R.id.container, TeamReplyFragment())
                 ?.commit()
         } else {
