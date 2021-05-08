@@ -1,6 +1,8 @@
 package com.atechy.atechytwitterclone.teamreply
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,11 +31,19 @@ class TeamReplyAdapter(private val messagesList: List<Message>) : RecyclerView.A
 
     override fun getItemCount()= messagesList.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TeamReplyHolder, position: Int) {
         val messages = messagesList[position]
         holder.messageText.text = messages.message
         holder.textName.text = messages.name
-        holder.textEmail.text = "@"+messages.email
+        val indexOfAtChar = messages.email?.indexOf("@", 0)
+        Log.e(">>>>", ">>>>>$indexOfAtChar")
+        if(indexOfAtChar!= -1){
+            val initialOfEmail = indexOfAtChar?.let { messages.email!!.substring(0, it) }
+            holder.textEmail.text = "@$initialOfEmail"
+        }else{
+            holder.textEmail.visibility = View.INVISIBLE
+        }
 
         if(messagesList.lastIndex== position){
             holder.verticalView.visibility = View.GONE
