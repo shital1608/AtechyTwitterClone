@@ -1,7 +1,9 @@
 package com.atechy.atechytwitterclone.login
 
+import android.R.attr
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +43,12 @@ class LoginFragment : Fragment() {
             container,
             false
         )
+        handleBackEvent(binding.root)
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         observeData(binding)
 
         binding.textSignUp.setOnClickListener {
-            fragmentManager?.beginTransaction()?.replace(R.id.container, SignUpFragment())?.commit()
+            fragmentManager?.beginTransaction()?.replace(R.id.container, SignUpFragment())?.addToBackStack("tag")?.commit()
         }
 
         binding.buttonSignIn.setOnClickListener {
@@ -100,6 +103,20 @@ class LoginFragment : Fragment() {
         } else {
             Toast.makeText(activity, resources.getString(R.string.auth_fail), Toast.LENGTH_SHORT)
                 .show()
+        }
+    }
+
+    /**
+     * Handle back event
+     */
+    private fun handleBackEvent(view: View){
+        view.isFocusableInTouchMode = true
+        view.requestFocus()
+        view.setOnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action === KeyEvent.ACTION_UP) {
+                activity?.finish()
+            }
+            false
         }
     }
 
