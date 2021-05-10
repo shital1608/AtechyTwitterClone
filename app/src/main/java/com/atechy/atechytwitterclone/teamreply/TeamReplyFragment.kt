@@ -1,23 +1,14 @@
 package com.atechy.atechytwitterclone.teamreply
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.atechy.atechytwitterclone.BaseFragment
+import com.atechy.atechytwitterclone.base.BaseFragment
 import com.atechy.atechytwitterclone.R
 import com.atechy.atechytwitterclone.databinding.FragmentTeamReplyBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 
 
 /**
@@ -88,6 +79,7 @@ class TeamReplyFragment : BaseFragment<FragmentTeamReplyBinding>() {
                 viewLifecycleOwner,
                 Observer { messageList: List<Message> ->
                     if (messageList.isNotEmpty()) {
+                        linearLayoutManager.scrollToPosition(messageList.size - 1);
                         adapter = activity?.let { TeamReplyAdapter(messageList) }!!
                         binding.teamReplyRecyclerView.adapter = adapter
                     }

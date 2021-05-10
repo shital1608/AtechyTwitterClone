@@ -1,4 +1,4 @@
-package com.atechy.atechytwitterclone
+package com.atechy.atechytwitterclone.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.atechy.atechytwitterclone.R
+import com.atechy.atechytwitterclone.base.BaseAdapter
+import com.atechy.atechytwitterclone.databinding.ItemReplayBinding
 import com.atechy.atechytwitterclone.teamreply.TeamReplyAdapter.*
 
 /**
@@ -16,39 +20,43 @@ import com.atechy.atechytwitterclone.teamreply.TeamReplyAdapter.*
  *
  * This is messaging adapter class
  */
-class TeamReplyAdapter(private val messagesList: List<Message>) : RecyclerView.Adapter<TeamReplyHolder>() {
-    class TeamReplyHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val messageText: TextView = v.findViewById(R.id.textViewMessage)
-        val textName: TextView = v.findViewById(R.id.textName)
-        val textEmail: TextView = v.findViewById(R.id.textEmail)
-        val verticalView: View = v.findViewById(R.id.verticalView)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamReplyHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_replay, parent, false)
-        return TeamReplyHolder(view)
-    }
+class TeamReplyAdapter(private val messagesList: List<Message>) : BaseAdapter<Message>() {
 
     override fun getItemCount() = messagesList.size
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: TeamReplyHolder, position: Int) {
+    override fun createBinding(parent: ViewGroup, viewType: Int): ViewDataBinding {
+        return DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                getItemLayoutId(0),
+                parent,
+                false
+        )
+    }
+
+    override fun getItemLayoutId(viewType: Int) = R.layout.item_replay
+
+    override fun bind(binding: ViewDataBinding, position: Int) {
+        val bind = binding as ItemReplayBinding
         val messages = messagesList[position]
-        holder.messageText.text = messages.message
-        holder.textName.text = messages.name
+        bind.textViewMessage.text = messages.message
+        bind.textName.text = messages.name
         val indexOfAtChar = messages.email?.indexOf("@", 0)
         if (indexOfAtChar != -1) {
             val initialOfEmail = indexOfAtChar?.let { messages.email!!.substring(0, it) }
-            holder.textEmail.text = "@$initialOfEmail"
+            bind.textEmail.text = "@$initialOfEmail"
         } else {
-            holder.textEmail.visibility = View.INVISIBLE
+            bind.textEmail.visibility = View.INVISIBLE
         }
 
         if (messagesList.lastIndex == position) {
-            holder.verticalView.visibility = View.GONE
+            bind.verticalView.visibility = View.GONE
         } else {
-            holder.verticalView.visibility = View.VISIBLE
+            bind.verticalView.visibility = View.VISIBLE
         }
+    }
+
+    override fun bindWithPayload(binding: ViewDataBinding, position: Int, any: Any) {
+
     }
 }
 

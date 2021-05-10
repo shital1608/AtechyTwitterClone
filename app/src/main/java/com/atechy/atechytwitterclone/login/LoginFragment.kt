@@ -2,15 +2,11 @@ package com.atechy.atechytwitterclone.login
 
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.atechy.atechytwitterclone.BaseFragment
+import com.atechy.atechytwitterclone.base.BaseFragment
 import com.atechy.atechytwitterclone.R
 import com.atechy.atechytwitterclone.Status
 import com.atechy.atechytwitterclone.databinding.FragmentLoginBinding
