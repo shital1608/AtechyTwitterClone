@@ -25,11 +25,11 @@ class TeamReplyAdapter(private val messagesList: List<Message>) : RecyclerView.A
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamReplyHolder {
-       val view = LayoutInflater.from(parent.context).inflate(R.layout.item_replay, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_replay, parent, false)
         return TeamReplyHolder(view)
     }
 
-    override fun getItemCount()= messagesList.size
+    override fun getItemCount() = messagesList.size
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TeamReplyHolder, position: Int) {
@@ -37,16 +37,16 @@ class TeamReplyAdapter(private val messagesList: List<Message>) : RecyclerView.A
         holder.messageText.text = messages.message
         holder.textName.text = messages.name
         val indexOfAtChar = messages.email?.indexOf("@", 0)
-        if(indexOfAtChar!= -1){
+        if (indexOfAtChar != -1) {
             val initialOfEmail = indexOfAtChar?.let { messages.email!!.substring(0, it) }
             holder.textEmail.text = "@$initialOfEmail"
-        }else{
+        } else {
             holder.textEmail.visibility = View.INVISIBLE
         }
 
-        if(messagesList.lastIndex== position){
+        if (messagesList.lastIndex == position) {
             holder.verticalView.visibility = View.GONE
-        }else{
+        } else {
             holder.verticalView.visibility = View.VISIBLE
         }
     }

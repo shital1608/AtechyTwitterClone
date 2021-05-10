@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.atechy.atechytwitterclone.BaseFragment
 import com.atechy.atechytwitterclone.R
 import com.atechy.atechytwitterclone.Status
 import com.atechy.atechytwitterclone.databinding.FragmentSignupBinding
@@ -23,40 +24,24 @@ import com.atechy.atechytwitterclone.teamreply.TeamReplyFragment
  *
  * This class is used to Sign up in application
  */
-class SignUpFragment : Fragment() {
+class SignUpFragment : BaseFragment<FragmentSignupBinding>() {
     companion object {
         val TAG = SignUpFragment::class.qualifiedName
     }
 
     private lateinit var signUpViewModel: SignUpViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = DataBindingUtil.inflate<FragmentSignupBinding>(
-            inflater,
-            R.layout.fragment_signup,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         signUpViewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
-        signUpViewModel.userRegisterResponse.observe(
-            viewLifecycleOwner,
-            Observer { response: String ->
-                binding.progressBar.visibility = View.GONE
-                loadTeamReplayFragment(response)
-            })
-        signUpViewModel.mEmailAlreadyExist.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                binding.edtName.setText("")
-                binding.edtPassword.setText("")
-                binding.edtConfirmPassword.setText("")
-                binding.edtEmail.setText("")
-            }
-        })
+        observeData()
+        onClick()
+    }
 
+    /**
+     * on click events
+     */
+    private fun onClick() {
         binding.textSignIn?.setOnClickListener { view: View ->
             fragmentManager?.beginTransaction()?.replace(R.id.container, LoginFragment())?.commit()
         }
@@ -66,20 +51,39 @@ class SignUpFragment : Fragment() {
          */
         binding.buttonSignUp.setOnClickListener {
             if (binding.edtName.text.toString().isBlank() || binding.edtEmail.text.toString()
-                    .isBlank() || binding.edtPassword.text.toString()
-                    .isBlank() || binding.edtConfirmPassword.text.toString().isBlank()
+                            .isBlank() || binding.edtPassword.text.toString()
+                            .isBlank() || binding.edtConfirmPassword.text.toString().isBlank()
             ) {
                 displayToast(resources.getString(R.string.feilds_should_not_be_empty))
             } else {
                 binding.progressBar.visibility = View.VISIBLE
                 signUpViewModel.registerUser(
-                    binding.edtName.text.toString(),
-                    binding.edtEmail.text.toString(),
-                    binding.edtPassword.text.toString()
+                        binding.edtName.text.toString(),
+                        binding.edtEmail.text.toString(),
+                        binding.edtPassword.text.toString()
                 )
             }
         }
-        return binding.root
+    }
+
+    /**
+     * Observe data
+     */
+    private fun observeData() {
+        signUpViewModel.userRegisterResponse.observe(
+                viewLifecycleOwner,
+                Observer { response: String ->
+                    binding.progressBar.visibility = View.GONE
+                    loadTeamReplayFragment(response)
+                })
+        signUpViewModel.mEmailAlreadyExist.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                binding.edtName.setText("")
+                binding.edtPassword.setText("")
+                binding.edtConfirmPassword.setText("")
+                binding.edtEmail.setText("")
+            }
+        })
     }
 
     /**
@@ -104,4 +108,6 @@ class SignUpFragment : Fragment() {
     private fun displayToast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
     }
+
+    override fun getLayoutRes() =  R.layout.fragment_signup
 }

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.atechy.atechytwitterclone.BaseFragment
 import com.atechy.atechytwitterclone.R
 import com.atechy.atechytwitterclone.databinding.FragmentTeamReplyBinding
 import com.google.firebase.database.DataSnapshot
@@ -25,7 +26,7 @@ import com.google.firebase.database.ValueEventListener
  *
  * This class shows the team reply
  */
-class TeamReplyFragment : Fragment() {
+class TeamReplyFragment : BaseFragment<FragmentTeamReplyBinding>() {
     companion object {
         val TAG = TeamReplyFragment::class.qualifiedName
     }
@@ -35,44 +36,18 @@ class TeamReplyFragment : Fragment() {
     private lateinit var teamReplyViewModel: TeamReplyViewModel
     private val messages: MutableList<Message> = ArrayList()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = DataBindingUtil.inflate<FragmentTeamReplyBinding>(
-            inflater,
-            R.layout.fragment_team_reply,
-            container,
-            false
-        )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         teamReplyViewModel = ViewModelProvider(this).get(TeamReplyViewModel::class.java)
-        initTeamReplayView(binding)
-        observeData(binding)
-        return binding.root
+        initTeamReplayView()
+        observeData()
+        onClickEvents()
     }
 
     /**
-     * Observe data messages data and show in list
+     * Click events
      */
-    private fun observeData(binding: FragmentTeamReplyBinding?) {
-        teamReplyViewModel.mListOfMessages.observe(
-            viewLifecycleOwner,
-            Observer { messageList: List<Message> ->
-                if (messageList.isNotEmpty()) {
-                    adapter = activity?.let { TeamReplyAdapter(messageList) }!!
-                    binding?.teamReplyRecyclerView?.adapter = adapter
-                }
-            })
-    }
-
-    /**
-     * Initialize views
-     */
-    private fun initTeamReplayView(binding: FragmentTeamReplyBinding) {
-        linearLayoutManager = LinearLayoutManager(activity)
-        binding.teamReplyRecyclerView.layoutManager = linearLayoutManager
-
+    private fun onClickEvents() {
         binding.backImage.setOnClickListener {
             activity?.finish()
         }
@@ -82,9 +57,9 @@ class TeamReplyFragment : Fragment() {
                 Toast.makeText(activity, "Please write message", Toast.LENGTH_SHORT).show()
             } else {
                 val myMessage = Message(
-                    teamReplyViewModel.getUserObject()?.name,
-                    binding.editReply.text.toString(),
-                    null
+                        teamReplyViewModel.getUserObject()?.name,
+                        binding.editReply.text.toString(),
+                        null
                 )
                 messages.add(myMessage)
                 if (messages.isNotEmpty()) {
@@ -93,17 +68,38 @@ class TeamReplyFragment : Fragment() {
                 }
                 val message = teamReplyViewModel.getUserObject()?.name?.let { it1 ->
                     Message(
-                        message = binding.editReply.text.toString(),
-                        name = it1,
-                        email = teamReplyViewModel.getUserObject()!!.email,
-                        key = teamReplyViewModel.getUserObject()!!.uid
+                            message = binding.editReply.text.toString(),
+                            name = it1,
+                            email = teamReplyViewModel.getUserObject()!!.email,
+                            key = teamReplyViewModel.getUserObject()!!.uid
                     )
                 }
                 teamReplyViewModel.getMessageDb().push().setValue(message)
                 binding.editReply.setText("")
             }
         }
+    }
 
+    /**
+     * Observe data messages data and show in list
+     */
+    private fun observeData() {
+        teamReplyViewModel.mListOfMessages.observe(
+                viewLifecycleOwner,
+                Observer { messageList: List<Message> ->
+                    if (messageList.isNotEmpty()) {
+                        adapter = activity?.let { TeamReplyAdapter(messageList) }!!
+                        binding.teamReplyRecyclerView.adapter = adapter
+                    }
+                })
+    }
+
+    /**
+     * Initialize views
+     */
+    private fun initTeamReplayView() {
+        linearLayoutManager = LinearLayoutManager(activity)
+        binding.teamReplyRecyclerView.layoutManager = linearLayoutManager
     }
 
     /**
@@ -113,4 +109,6 @@ class TeamReplyFragment : Fragment() {
         super.onStart()
         teamReplyViewModel.callInOnStart()
     }
+
+    override fun getLayoutRes() = R.layout.fragment_team_reply
 }
