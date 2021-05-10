@@ -49,6 +49,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                             binding.editPassword.text.toString()
                     )
                 } else {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(
                             activity,
                             resources.getString(R.string.please_enter_valid_email),
@@ -56,6 +57,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     ).show()
                 }
             } else {
+                binding.progressBar.visibility = View.GONE
                 Toast.makeText(
                         activity,
                         resources.getString(R.string.email_pass_should_not_be),
